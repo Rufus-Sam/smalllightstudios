@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="44 66 278 268" role="img" aria-label="Small Light Studios">
+  <defs><linearGradient id="sl-amber" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFCC66"/><stop offset="1" stop-color="#F58533"/></linearGradient></defs>
+  <path d="M60,250 C52,290 90,320 120,308 C150,296 138,250 112,250 C92,250 100,272 118,282 C135,305 162,318 200,318 C245,318 278,296 278,258 C278,218 242,202 200,198 C158,194 124,178 124,140 C124,102 160,82 200,82 C235,82 258,95 270,110" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="283.7" cy="127.2" r="32" fill="url(#sl-amber)"/>
+</svg>
