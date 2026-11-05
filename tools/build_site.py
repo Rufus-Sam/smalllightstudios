@@ -1,12 +1,13 @@
-"""Builds index.html, phosandkin/index.html and findinglife/index.html. Run: python3 tools/build_site.py ."""
+"""Builds the site pages. Run: python3 tools/build_site.py . <PhosAndKin>/store/privacy-policy.md <Finding Life>/store/privacy-policy.md
+(needs the markdown package; without the two policy paths the privacy pages are left as they are)."""
 import pathlib, sys
 site = pathlib.Path(sys.argv[1])
 logo = (site / "assets/logo.svg").read_text().replace('<svg ', '<svg aria-hidden="true" ', 1)
 play_svg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 5 3.5z"/></svg>'
 PK = "https://play.google.com/store/apps/details?id=com.rufusam.phosandkin"
 FL = "https://play.google.com/store/apps/details?id=com.rufusam.finding_life"
-PK_PRIV = "https://rufus-sam.github.io/phos-and-kin-privacy/"
-FL_PRIV = "https://rufus-sam.github.io/finding-life-privacy/"
+PK_PRIV = "/phosandkin/privacy/"
+FL_PRIV = "/findinglife/privacy/"
 PIN = '<meta name="p:domain_verify" content="897a5ddaa8d560fddc6f5e8c36b38c08"/>'
 
 def head(title, desc, url, image, icon, extra=""):
@@ -185,6 +186,20 @@ life = head("Finding Life: a quiet Bible companion for new believers and seekers
   <p class="note" style="color:#fff;opacity:.8;margin:24px 0 0"><a href="{FL_PRIV}">Privacy policy</a></p>
 </div></section>
 ''' + footer
+
+# Privacy policies: rendered from each app repo's store/privacy-policy.md (passed as arguments 2 and 3).
+import markdown, re
+def policy(md_path, app, url, icon):
+    text = pathlib.Path(md_path).read_text()
+    text = re.sub(r"\A---\n.*?\n---\n", "", text, flags=re.S)
+    body = markdown.markdown(text, extensions=["tables"])
+    return head(f"{app} privacy policy", f"How {app} handles your information.", url,
+                "https://smalllightstudios.com/og.jpg", icon) + f'<section><div class="wrap doc">{body}</div></section>\n' + footer
+if len(sys.argv) > 3:
+    (site / "phosandkin/privacy").mkdir(exist_ok=True)
+    (site / "findinglife/privacy").mkdir(exist_ok=True)
+    (site / "phosandkin/privacy/index.html").write_text(policy(sys.argv[2], "Phos &amp; Kin", "https://smalllightstudios.com/phosandkin/privacy/", "/phosandkin/icon.png"))
+    (site / "findinglife/privacy/index.html").write_text(policy(sys.argv[3], "Finding Life", "https://smalllightstudios.com/findinglife/privacy/", "/findinglife/icon.png"))
 
 (site / "index.html").write_text(home)
 (site / "phosandkin/index.html").write_text(phos)

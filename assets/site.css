@@ -121,6 +121,17 @@ footer .fine { border-top: 1px solid rgba(255,255,255,.08); margin-top: 40px; pa
 .socials a:hover { background: rgba(255,255,255,.24); }
 .note { font-size: 14px; color: var(--muted); }
 
+/* Long-form documents (privacy policies) */
+.doc { max-width: 760px; }
+.doc h1 { font-size: clamp(30px, 4vw, 40px); margin: 0 0 12px; }
+.doc h2 { font-size: 24px; margin: 36px 0 10px; }
+.doc h3 { font-size: 19px; margin: 24px 0 8px; }
+.doc p, .doc li { color: #2e3348; }
+.doc a { color: var(--amber-2); }
+.doc table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 15px; }
+.doc th, .doc td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+.doc code { background: #f0f1f6; padding: 1px 5px; border-radius: 5px; font-size: .9em; }
+
 @media (max-width: 860px) {
   .top nav a:not(.keep) { display: none; }
   .hero .wrap, .p-hero .wrap, .story .wrap { grid-template-columns: 1fr; padding-top: 56px; padding-bottom: 64px; }
