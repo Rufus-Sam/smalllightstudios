@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>A Finding Life quiz challenge</title>
+<meta property="og:title" content="A Finding Life quiz challenge">
+<meta property="og:description" content="Take the same quiz in Finding Life and see if you can beat the score.">
+<style>
+  body { margin: 0; font: 17px/1.5 system-ui, -apple-system, Roboto, sans-serif; background: #0e1530; color: #f5efe2; }
+  main { max-width: 34rem; margin: 0 auto; padding: 3rem 1.5rem; text-align: center; }
+  h1 { font-size: 1.6rem; margin: 0 0 .5rem; }
+  .btn { display: block; margin: 1rem 0; padding: .9rem 1rem; border-radius: 999px; background: #e0a33b; color: #1b1405;
+         font-weight: 600; text-decoration: none; }
+  .btn.secondary { background: transparent; color: #f5efe2; border: 1px solid #f5efe2; }
+  code { display: block; word-break: break-all; font-size: .8rem; background: #1b2550; padding: .75rem; border-radius: .5rem; }
+  small { opacity: .75; }
+</style>
+</head>
+<body>
+<main>
+  <h1>A quiz challenge</h1>
+  <p id="who">A friend sent you a Finding Life quiz.</p>
+  <a class="btn" id="open" href="#">Open the quiz in Finding Life</a>
+  <a class="btn secondary" href="https://play.google.com/store/apps/details?id=com.rufusam.finding_life">Get Finding Life on Google Play</a>
+  <p><small>Already have the app and the button doesn't work? Open Quiz, tap <b>Enter code</b> and paste this code:</small></p>
+  <code id="code"></code>
+  <p><small>This page doesn't collect anything. The quiz is in the code above, and it opens in the app on your phone.</small></p>
+</main>
+<script>
+  // The challenge travels after the # (#c=…&n=…), so it never reaches the server. ?c= works too.
+  var hash = new URLSearchParams(location.hash.slice(1)), query = new URLSearchParams(location.search);
+  var c = (hash.get('c') || query.get('c') || '').replace(/[^A-Za-z0-9._:~-]/g, '');
+  var n = (hash.get('n') || query.get('n') || '').replace(/[^A-Za-z0-9_-]/g, '');
+  document.getElementById('code').textContent = c || '(no code in this link)';
+  function b64(s) { return decodeURIComponent(escape(atob((s + '===').slice(0, s.length + (4 - s.length % 4) % 4).replace(/-/g, '+').replace(/_/g, '/')))); }
+  try {
+    var who = n ? b64(n) : null, score = null, total = null;
+    if (/^[0-9A-Za-z]{4}-/.test(c)) {
+      // Short code: Crockford base 32 bits. format 2, rules 2, seed 16, count 2, level 2, kinds 4, show answers 1,
+      // has score 1, then score 5, total-is-count 1, [total 5].
+      var A = '0123456789ABCDEFGHJKMNPQRSTVWXYZ', bits = '';
+      c.toUpperCase().replace(/-/g, '').split('').forEach(function (ch) { bits += ('0000' + A.indexOf(ch).toString(2)).slice(-5); });
+      var at = 0; function take(w) { var v = parseInt(bits.substr(at, w), 2); at += w; return v; }
+      take(2); take(2); take(16); var count = [5, 10, 15, 20][take(2)]; take(2); take(4); take(1);
+      if (take(1) === 1) { score = take(5); total = take(1) === 1 ? count : take(5); }
+    } else if (c.indexOf('2.') === 0) {
+      var parts = c.split('~');
+      if (parts.length > 3) { who = who || (parts[1] ? b64(parts[1]) : null); score = parseInt(parts[2], 36); total = parseInt(parts[3], 36); }
+    } else if (c) {
+      var j = JSON.parse(b64(c)); who = j.f; score = j.sc; total = j.t;
+    }
+    if (score != null && !isNaN(score) && total) {
+      document.getElementById('who').textContent = (who || 'A friend') + ' scored ' + score + ' of ' + total + '. Can you beat it?';
+    }
+  } catch (e) {}
+  var carry = 'c=' + c + (n ? '&n=' + n : '');
+  // Not installed: Google Play, which passes the code to the app on its first launch (the install referrer).
+  var play = 'https://play.google.com/store/apps/details?id=com.rufusam.finding_life&referrer=' + encodeURIComponent(carry);
+  document.querySelectorAll('a[href^="https://play.google.com"]').forEach(function (a) { a.href = play; });
+  var android = /Android/i.test(navigator.userAgent);
+  // Installed: Android asks "Open with Finding Life?", then the app shows the challenge.
+  var open = android
+    ? 'intent://quiz?' + carry + '#Intent;scheme=findinglife;package=com.rufusam.finding_life;S.browser_fallback_url=' +
+      encodeURIComponent(play) + ';end'
+    : 'findinglife://quiz?' + carry;
+  document.getElementById('open').href = open;
+  if (c && android) location.href = open;
+</script>
+</body>
+</html>
