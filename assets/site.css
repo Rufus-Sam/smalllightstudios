@@ -30,6 +30,7 @@ img { max-width: 100%; display: block; }
 /* Buttons */
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 999px; font-weight: 600; font-size: 16px; text-decoration: none; transition: transform .15s ease, box-shadow .15s ease; }
 .btn:hover { transform: translateY(-1px); }
+.btn-soon { background: rgba(255,255,255,.18); color: #fff; border: 1.5px solid rgba(255,255,255,.6); cursor: default; }
 .btn-amber { background: linear-gradient(180deg, var(--amber), var(--amber-2)); color: #2a1406; box-shadow: 0 8px 24px rgba(245, 133, 51, .35); }
 .btn-ghost { border: 1.5px solid rgba(255,255,255,.35); color: #fff; }
 .btn-white { background: #fff; color: var(--ember-1); box-shadow: 0 8px 24px rgba(0,0,0,.18); }
@@ -54,9 +55,11 @@ h2 { font-size: clamp(30px, 4vw, 42px); line-height: 1.15; margin: 0 0 14px; let
 .sub { color: var(--muted); font-size: 19px; max-width: 40rem; margin: 0 0 48px; }
 
 /* Product cards */
-.products { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.products .card { padding: 30px; }
 .card { position: relative; border-radius: var(--radius); padding: 36px; color: #fff; overflow: hidden; display: flex; flex-direction: column; min-height: 420px; box-shadow: 0 20px 50px rgba(20, 26, 51, .18); }
 .card.phos { background: linear-gradient(135deg, var(--ember-1), var(--ember-2) 55%, var(--ember-3)); }
+.card.fun { background: linear-gradient(170deg, #2f7fd6, #5bbcf5 70%, #6fcf63); }
 .card.life { background: radial-gradient(500px 300px at 85% 10%, rgba(255,255,255,.08), transparent 60%), linear-gradient(160deg, var(--night-1), var(--night-2)); }
 .card .icon { width: 84px; height: 84px; border-radius: 20px; box-shadow: 0 10px 24px rgba(0,0,0,.25); margin-bottom: 26px; }
 .card h3 { font-family: var(--serif); font-size: 32px; margin: 0 0 6px; }
@@ -96,6 +99,7 @@ footer .fine { border-top: 1px solid rgba(255,255,255,.08); margin-top: 40px; pa
 /* Product pages */
 .p-hero { color: #fff; }
 .p-hero.phos { background: linear-gradient(135deg, var(--ember-1), var(--ember-2) 55%, var(--ember-3)); }
+.p-hero.fun { background: linear-gradient(170deg, #2f7fd6, #5bbcf5 75%, #6fcf63); }
 .p-hero.life { background: radial-gradient(900px 500px at 75% 30%, rgba(120,140,255,.18), transparent 60%), linear-gradient(160deg, var(--night-1), var(--night-2)); }
 .p-hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center; padding-top: 80px; padding-bottom: 90px; }
 .p-hero .icon { width: 96px; height: 96px; border-radius: 22px; box-shadow: 0 12px 30px rgba(0,0,0,.25); margin-bottom: 24px; }
@@ -113,6 +117,7 @@ footer .fine { border-top: 1px solid rgba(255,255,255,.08); margin-top: 40px; pa
 .feature p { color: var(--muted); margin: 0; }
 .band { text-align: center; }
 .band.phos { background: linear-gradient(135deg, var(--ember-1), var(--ember-2)); color: #fff; }
+.band.fun { background: linear-gradient(135deg, #2f7fd6, #5bbcf5); color: #fff; }
 .band.life { background: var(--night-1); color: #fff; }
 .band h2 { color: #fff; }
 .band p { opacity: .9; margin: 0 0 28px; font-size: 19px; }
@@ -132,6 +137,7 @@ footer .fine { border-top: 1px solid rgba(255,255,255,.08); margin-top: 40px; pa
 .doc th, .doc td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
 .doc code { background: #f0f1f6; padding: 1px 5px; border-radius: 5px; font-size: .9em; }
 
+@media (max-width: 1100px) { .products { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 860px) {
   .top nav a:not(.keep) { display: none; }
   .hero .wrap, .p-hero .wrap, .story .wrap { grid-template-columns: 1fr; padding-top: 56px; padding-bottom: 64px; }

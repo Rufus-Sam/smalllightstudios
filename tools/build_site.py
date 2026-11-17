@@ -1,4 +1,4 @@
-"""Builds the site pages. Run: python3 tools/build_site.py . <PhosAndKin>/store/privacy-policy.md <Finding Life>/store/privacy-policy.md
+"""Builds the site pages. Run: python3 tools/build_site.py . <PhosAndKin>/store/privacy-policy.md <Finding Life>/store/privacy-policy.md [<Funifold>/store/privacy-policy.md]
 (needs the markdown package; without the two policy paths the privacy pages are left as they are)."""
 import pathlib, sys
 site = pathlib.Path(sys.argv[1])
@@ -8,6 +8,8 @@ PK = "https://play.google.com/store/apps/details?id=com.rufusam.phosandkin"
 FL = "https://play.google.com/store/apps/details?id=com.rufusam.finding_life"
 PK_PRIV = "/phosandkin/privacy/"
 FL_PRIV = "/findinglife/privacy/"
+FU_PRIV = "/funifold/privacy/"
+SOON = '<span class="btn btn-soon">Coming soon to Google Play</span>'
 PIN = '<meta name="p:domain_verify" content="897a5ddaa8d560fddc6f5e8c36b38c08"/>'
 
 def head(title, desc, url, image, icon, extra=""):
@@ -40,11 +42,11 @@ footer = f'''<footer><div class="wrap">
   <div class="cols">
     <div><a class="brand" href="/">{logo}<span style="display:flex;flex-direction:column;line-height:1.15"><b style="color:#fff">SMALL LIGHT</b><span>STUDIOS</span></span></a>
       <p style="margin:0">Small lights for everyday life.</p></div>
-    <div><h4>Apps</h4><a href="/phosandkin/">Phos &amp; Kin</a><a href="/findinglife/">Finding Life</a></div>
+    <div><h4>Apps</h4><a href="/phosandkin/">Phos &amp; Kin</a><a href="/findinglife/">Finding Life</a><a href="/funifold/">Funifold</a></div>
     <div><h4>Studio</h4><a href="/#about">About</a><a href="/#contact">Contact</a><a href="mailto:hello@smalllightstudios.com">hello@smalllightstudios.com</a></div>
     <div><h4>Follow</h4><a href="https://www.instagram.com/small_light_studios/">Instagram</a><a href="https://www.youtube.com/@small-light-studios">YouTube</a><a href="https://www.linkedin.com/company/144087423/">LinkedIn</a></div>
   </div>
-  <div class="fine">© 2026 Small Light Studios · <a href="{PK_PRIV}" style="display:inline">Phos &amp; Kin privacy</a> · <a href="{FL_PRIV}" style="display:inline">Finding Life privacy</a></div>
+  <div class="fine">© 2026 Small Light Studios · <a href="{PK_PRIV}" style="display:inline">Phos &amp; Kin privacy</a> · <a href="{FL_PRIV}" style="display:inline">Finding Life privacy</a> · <a href="{FU_PRIV}" style="display:inline">Funifold privacy</a></div>
 </div></footer>
 </body>
 </html>
@@ -79,6 +81,13 @@ home = head("Small Light Studios", "Small lights for everyday life. We make calm
       <p class="tag">A quiet companion for new believers and honest seekers.</p>
       <p>The Bible, guided journeys, true stories of faith and help for hard days, for anyone wrestling with doubt.</p>
       <div class="actions"><a class="btn btn-amber" href="{FL}">{play_svg} Get it on Google Play</a><a class="more" href="/findinglife/">Learn more →</a></div>
+    </div>
+    <div class="card fun">
+      <img class="icon" src="/funifold/icon.png" alt="Funifold icon">
+      <h3>Funifold</h3>
+      <p class="tag">Party games for the people around you.</p>
+      <p>Bluff, crack codes and sail for the islands with friends at the same table, or with bots on your own.</p>
+      <div class="actions">{SOON}<a class="more" href="/funifold/">Learn more →</a></div>
     </div>
   </div>
 </div></section>
@@ -187,6 +196,44 @@ life = head("Finding Life: a quiet Bible companion for new believers and seekers
 </div></section>
 ''' + footer
 
+fun = head("Funifold: party games for the people around you",
+            "Funifold is a set of party games for friends in the same room: Fib or Fact, Secret Code and Lantern Isles. Coming soon to Google Play.",
+            "https://smalllightstudios.com/funifold/", "https://smalllightstudios.com/funifold/cover.jpg", "/funifold/icon.png") + f'''
+<section class="p-hero fun"><div class="wrap">
+  <div>
+    <img class="icon" src="/funifold/icon.png" alt="Funifold icon">
+    <h1>Funifold</h1>
+    <p class="lead">Party games for the people around you. Phones hold the secrets; the fun happens at the table.</p>
+    {SOON}
+  </div>
+  <div class="art phones">
+    <img src="/funifold/home.jpg" alt="Funifold home screen with three games">
+    <img src="/funifold/fib.jpg" alt="Fib or Fact: pick the real answer">
+    <img src="/funifold/lantern.jpg" alt="Lantern Isles game board">
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="kicker">The games</p>
+  <h2>Three games, one table</h2>
+  <p class="sub">Everyone plays on their own phone, in the same room. No account, nothing to set up.</p>
+  <div class="features">
+    <div class="feature"><div class="emoji">🎉</div><h3>Fib or Fact</h3><p>Everyone writes a believable fib. Spot the real answer, and score when your fib fools your friends.</p></div>
+    <div class="feature"><div class="emoji">🔒</div><h3>Secret Code</h3><p>Hide a code of gems, then race to crack everyone else's with gold and silver clues.</p></div>
+    <div class="feature"><div class="emoji">⭐</div><h3>Lantern Isles</h3><p>Order your boats all at once, make pacts, and hold the lantern islands. No dice, just plans.</p></div>
+    <div class="feature"><div class="emoji">📱</div><h3>Join in seconds</h3><p>Type a 4-digit code, scan a QR code or tap a link. The host lets each friend in.</p></div>
+    <div class="feature"><div class="emoji">🤖</div><h3>Bots when you're alone</h3><p>Every game can be played with bots on one phone, to learn it or just for fun.</p></div>
+    <div class="feature"><div class="emoji">🔐</div><h3>Stays at the table</h3><p>Phones talk over your own Wi-Fi or hotspot. No account, and your record stays on your phone.</p></div>
+  </div>
+</div></section>
+
+<section class="band fun"><div class="wrap">
+  <h2>Gather your people</h2>
+  <p>Coming soon to Google Play.</p>
+  <p class="note" style="color:#fff;opacity:.9;margin:24px 0 0"><a href="{FU_PRIV}">Privacy policy</a></p>
+</div></section>
+''' + footer
+
 # Privacy policies: rendered from each app repo's store/privacy-policy.md (passed as arguments 2 and 3).
 import markdown, re
 def policy(md_path, app, url, icon):
@@ -195,13 +242,21 @@ def policy(md_path, app, url, icon):
     body = markdown.markdown(text, extensions=["tables"])
     return head(f"{app} privacy policy", f"How {app} handles your information.", url,
                 "https://smalllightstudios.com/og.jpg", icon) + f'<section><div class="wrap doc">{body}</div></section>\n' + footer
+# Pass "-" for a policy to leave that privacy page as it is.
 if len(sys.argv) > 3:
-    (site / "phosandkin/privacy").mkdir(exist_ok=True)
-    (site / "findinglife/privacy").mkdir(exist_ok=True)
-    (site / "phosandkin/privacy/index.html").write_text(policy(sys.argv[2], "Phos &amp; Kin", "https://smalllightstudios.com/phosandkin/privacy/", "/phosandkin/icon.png"))
-    (site / "findinglife/privacy/index.html").write_text(policy(sys.argv[3], "Finding Life", "https://smalllightstudios.com/findinglife/privacy/", "/findinglife/icon.png"))
+    if sys.argv[2] != "-":
+        (site / "phosandkin/privacy").mkdir(exist_ok=True)
+        (site / "phosandkin/privacy/index.html").write_text(policy(sys.argv[2], "Phos &amp; Kin", "https://smalllightstudios.com/phosandkin/privacy/", "/phosandkin/icon.png"))
+    if sys.argv[3] != "-":
+        (site / "findinglife/privacy").mkdir(exist_ok=True)
+        (site / "findinglife/privacy/index.html").write_text(policy(sys.argv[3], "Finding Life", "https://smalllightstudios.com/findinglife/privacy/", "/findinglife/icon.png"))
 
 (site / "index.html").write_text(home)
 (site / "phosandkin/index.html").write_text(phos)
 (site / "findinglife/index.html").write_text(life)
+(site / "funifold").mkdir(exist_ok=True)
+(site / "funifold/index.html").write_text(fun)
+if len(sys.argv) > 4:
+    (site / "funifold/privacy").mkdir(exist_ok=True)
+    (site / "funifold/privacy/index.html").write_text(policy(sys.argv[4], "Funifold", "https://smalllightstudios.com/funifold/privacy/", "/funifold/icon.png"))
 print("built")
