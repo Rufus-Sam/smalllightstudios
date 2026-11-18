@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Join a Funifold room</title>
+<meta property="og:title" content="Join my Funifold room">
+<meta property="og:description" content="Party games for the people around you. Tap to join the room in Funifold.">
+<meta property="og:image" content="https://smalllightstudios.com/funifold/cover.jpg">
+<link rel="icon" href="/funifold/icon.png">
+<style>
+  body { margin: 0; min-height: 100vh; font: 17px/1.5 Nunito, system-ui, -apple-system, Roboto, sans-serif; color: #2e2a3b;
+         background: linear-gradient(170deg, #2f7fd6, #5bbcf5 70%, #6fcf63); }
+  main { max-width: 26rem; margin: 0 auto; padding: 2.5rem 1.25rem; }
+  .card { background: #fff; border-radius: 24px; padding: 1.75rem 1.5rem; text-align: center; box-shadow: 0 16px 40px rgba(0,0,0,.18); }
+  img { width: 84px; height: 84px; border-radius: 20px; }
+  h1 { font-size: 1.5rem; margin: .75rem 0 .25rem; }
+  .code { font-size: 2.6rem; font-weight: 800; letter-spacing: .3em; margin: .25rem 0 .5rem; padding-left: .3em; }
+  .btn { display: block; margin: .75rem 0 0; padding: .9rem 1rem; border-radius: 999px; background: #ffc83d; color: #2e2a3b;
+         font-weight: 800; text-decoration: none; }
+  .btn.secondary { background: transparent; border: 2px solid #e5dfee; }
+  small { color: #6b6580; display: block; margin-top: 1rem; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <img src="/funifold/icon.png" alt="Funifold">
+    <h1>Join a Funifold room</h1>
+    <div>Room code</div>
+    <div class="code" id="code">····</div>
+    <a class="btn" id="open" href="#">Open in Funifold</a>
+    <a class="btn secondary" id="play" href="https://play.google.com/store/apps/details?id=com.smalllightstudios.funifold">Get Funifold on Google Play</a>
+    <small>Have the app already? Open Funifold, tap <b>Join a room</b> and type the code. Be close to the host's phone.</small>
+    <small>This page doesn't collect anything: the room details stay after the # in the link and go straight to the app.</small>
+  </div>
+</main>
+<script>
+  // h = host address, p = port, c = 4-digit code; after the #, so they never reach the server.
+  var q = new URLSearchParams(location.hash.slice(1));
+  var h = (q.get('h') || '').replace(/[^0-9.]/g, ''), p = (q.get('p') || '').replace(/[^0-9]/g, ''), c = (q.get('c') || '').replace(/[^0-9]/g, '').slice(0, 4);
+  if (c.length === 4) document.getElementById('code').textContent = c;
+  var carry = 'h=' + h + '&p=' + p + '&c=' + c;
+  var play = document.getElementById('play').href;
+  var android = /Android/i.test(navigator.userAgent);
+  // Installed: Funifold opens and asks the host to let you in. Not installed: Google Play.
+  var open = android
+    ? 'intent://join?' + carry + '#Intent;scheme=funifold;package=com.smalllightstudios.funifold;S.browser_fallback_url=' + encodeURIComponent(play) + ';end'
+    : 'funifold://join?' + carry;
+  document.getElementById('open').href = open;
+  if (c.length === 4 && h && p && android) location.href = open;
+</script>
+</body>
+</html>
