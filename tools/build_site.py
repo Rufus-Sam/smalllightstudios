@@ -221,9 +221,12 @@ fun = head("Funifold: party games for the people around you",
     <div class="feature"><div class="emoji">🎉</div><h3>Fib or Fact</h3><p>Everyone writes a believable fib. Spot the real answer, and score when your fib fools your friends.</p></div>
     <div class="feature"><div class="emoji">🔒</div><h3>Secret Code</h3><p>Hide a code of gems, then race to crack everyone else's with gold and silver clues.</p></div>
     <div class="feature"><div class="emoji">⭐</div><h3>Lantern Isles</h3><p>Order your boats all at once, make pacts, and hold the lantern islands. No dice, just plans.</p></div>
-    <div class="feature"><div class="emoji">📱</div><h3>Join in seconds</h3><p>Type a 4-digit code, scan a QR code or tap a link. The host lets each friend in.</p></div>
+    <div class="feature"><div class="emoji">📱</div><h3>Join anywhere</h3><p>Type a 4-digit code, scan a QR code or tap a link. Works on Wi-Fi, a hotspot, or phone to phone when there's no shared Wi-Fi.</p></div>
+    <div class="feature"><div class="emoji">⏱️</div><h3>Play at your pace</h3><p>Pick 30 seconds to 2½ minutes per round. When time runs out, whatever you've typed or planned still counts.</p></div>
     <div class="feature"><div class="emoji">🤖</div><h3>Bots when you're alone</h3><p>Every game can be played with bots on one phone, to learn it or just for fun.</p></div>
-    <div class="feature"><div class="emoji">🔐</div><h3>Stays at the table</h3><p>Phones talk over your own Wi-Fi or hotspot. No account, and your record stays on your phone.</p></div>
+    <div class="feature"><div class="emoji">🦊</div><h3>Your face at the table</h3><p>Choose from 41 icons or use your own photo. Other players see it only while the room is open.</p></div>
+    <div class="feature"><div class="emoji">🔐</div><h3>Stays at the table</h3><p>Phones talk directly to each other, never through our servers. No account, and your record stays on your phone.</p></div>
+    <div class="feature"><div class="emoji">✋</div><h3>You let them in</h3><p>The host sees who wants to join and taps Let in. Nobody gets in without the room code and your OK.</p></div>
   </div>
 </div></section>
 
